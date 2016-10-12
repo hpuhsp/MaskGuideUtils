@@ -1,6 +1,184 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+
+    <!--
+       colorPrimary            app branding color for the app bar
+       colorPrimaryDark        status bar and contextual app bars
+       colorControlNormal      (unused here) controls in their normal state (spinner arrow, scrollbars, unchecked checkboxes)
+       colorControlActivated   controls in their activated/checked state (search highlight, checked checkboxes)
+       colorControlHighlight   control highlights (ripples, list selectors)
+   -->
+    <color name="colorPrimary">@color/green</color>
+    <color name="colorPrimaryDark">@color/text_black_light</color>
+    <color name="colorAccent">@color/green</color>
+    <color name="status_bar_color">@color/green</color>
+
+    <!-- Default Colors -->
+    <color name="black">#000000</color>
+    <color name="shallow_black">#666666</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black97">#979797</color>
+    <color name="whitefc">#FCFCFC</color>
+    <color name="white_ahl">#80FFFFFF</color>
+    <color name="white_f5f7">#F5F5F7</color>
+    <color name="base_material_blue">#3396FF</color>
+    <color name="base_material_red">#FF5E5E</color>
+
+
+    <!-- Base Colors -->
+    <color name="transparent">#00000000</color>
+    <color name="transparent60000000">#60000000</color>
+    <color name="transparentb2000000">#b2000000</color>
+    <color name="transparent07ffffff">#07ffffff</color>
+    <color name="transparent7747">#77474747</color>
+    <color name="transparent773c">#773c3c3c</color>
+    <color name="transparent_guide_mask">#cc000000</color>
+    <color name="shadow">#ea222222</color>
+
+    <color name="green">#37B355</color>
+    <color name="orange">#feab28</color>
+    <color name="orangea8">#a8feab28</color>
+    <color name="greenA837B355">#a837b355</color>
+    <color name="orangeA8FEAB28">#a8feab28</color>
+
+    <color name="blue">#2A91BD</color>
+    <color name="blue409FFF">#409FFF</color>
+    <color name="blue77c2">#77c2f9</color>
+    <color name="blue4a90">#4A90E2</color>
+
+    <color name="red8eFF0000">#8eff0000</color>
+    <color name="redFF0000">#FF0000</color>
+    <color name="redFE3824">#FE3824</color>
+    <color name="grayFBFCFE">#FBFCFE</color>
+    <color name="transparent409FFF">#07409fff</color>
+
+    <!-- 辅色-->
+    <color name="grayf2">#f2f2f2</color>
+    <color name="gray_b4">#b4b4b4</color>
+    <color name="black3c">#3c3c3c</color>
+    <color name="graye0">#e0e0e0</color>
+    <color name="grayf9">#f9f9f9</color>
+    <color name="grayf7">#f7f7f7</color>
+    <color name="grayf5">#f5f5f5</color>
+    <color name="grayf4">#f4f4f4</color>
+    <color name="grayc2c2c2">#ececec</color>
+    <color name="graycacaca">#f1f1f1</color>
+    <color name="gray_dark">#1E2129</color>
+
+
+    <!-- 文字颜色-->
+    <color name="text_black">@color/black3c</color>
+    <color name="text_black_light">@color/gray_b4</color>
+    <color name="text_green">@color/green</color>
+    <color name="text_orange">@color/orange</color>
+    <color name="text_blue">@color/blue409FFF</color>
+    <color name="text_new_blue">@color/blue4a90</color>
+    <color name="text_grayb4">@color/gray_b4</color>
+    <color name="text_hint_cl">@color/gray_b4</color>
+
+    <color name="text_title_cl">@color/text_black</color>
+    <color name="text_pop_blue">#0076FF</color>
+    <color name="text_red">@color/redFE3824</color>
+    <color name="text_black97">@color/black97</color>
+    <color name="text_gray_999">@color/color_grey_999999</color>
+
+
+    <color name="home_tab_bg_color">#606060</color>
+
+
+    <!--分割线颜色-->
+    <color name="divide_line">@color/graye0</color>
+    <color name="divide_green_line">@color/green</color>
+
+    <!-- 圆角边框-->
+    <color name="border_gray">@color/gray_b4</color>
+    <color name="border_green">@color/green</color>
+    <color name="border_orange">@color/orange</color>
+    <color name="border_black">@color/black97</color>
+
+    <!-- 圆角背景-->
+
+    <color name="pop_btn_background">@color/whitefc</color>
+    <color name="pop_btn_press_background">@color/white_ahl</color>
+
+
+    <!-- item背景-->
+    <color name="item_bg_orange">@color/orange</color>
+
+    <!-- 背景-->
+    <color name="background_white">@color/grayFBFCFE</color>
+    <color name="gray_background">@color/grayf2</color>
+    <color name="home_section_bg">@color/grayf2</color>
+
+    <color name="actionbar_item_background_normal">@color/transparent</color>
+    <color name="actionbar_item_background_pressed">@color/background_white</color>
+
+    <color name="pickerview_timebtn_nor">#057dff</color>
+    <color name="pickerview_timebtn_pre">#c2daf5</color>
+    <color name="pickerview_bg_topbar">#f5f5f5</color>
+    <color name="pickerview_topbar_title">#000000</color>
+    <color name="item_high_light_bg">@color/transparent409FFF</color>
+
+    <!--覆盖颜色-->
+    <color name="pickerview_overlay">@color/transparent60000000</color>
+    <color name="list_background">@color/grayf2</color>
+    <color name="alpha_gray">@color/transparentb2000000</color>
+    <color name="black_test">#47000000</color>
+    <color name="mask_test">#70000000</color>
+
+
+    <!--***************云信************-->
+
+    <color name="color_b3b3b3">#b3b3b3</color>
+    <color name="color_black_333333">#333333</color>
+    <color name="color_activity_blue_bg">#f7389fff</color>
+    <color name="main_bg_color">#FFFFFF</color>
+    <color name="split_line_grey_color_d9d9d9">#D9D9D9</color>
+    <color name="color_gray_d9d9d9">#d9d9d9</color>
+    <color name="GreyWhite">#F7F7F7</color>
+    <color name="divider_line">#e0e0e0</color>
+    <color name="color_red_ccfa3c55">#ccfa3c55</color>
+    <color name="gray_bg">#F2F2F2</color>
+    <color name="color_split_line_d9d9d9">#d9d9d9</color>
+    <color name="blackb4">#b4b4b4</color>
+    <color name="color_green_disable">#a2efe0</color>
+    <color name="color_green_00d3a9">#ff00D3A9</color>
+    <color name="color_grey_999999">#999999</color>
+    <color name="im_list_select_hover">#dbdbdb</color>
+    <color name="green_4DC0A4">#4DC0A4</color>
+    <color name="input_panel_text_color_757572">#757572</color>
+    <color name="color_black_b3000000">#b3000000</color>
+    <color name="color_grey_eaeaea">#eaeaea</color>
+    <color name="color_grey_555555">#555555</color>
+    <color name="gray7">#c5c4c4</color>
+
+    <color name="ddddd">#FF0000</color>
+
+    <color name="gray_translucent">#7fe6e6e6</color>
+
+    <color name="test_demo">#8f37b355</color>
+
+
+    <!--自定义-->
+    <color name="primary_color">#ff2020</color>
+    <color name="material_red">#FFFAFAFA</color>
+    <color name="material_green">#ff4CAF50</color>
+    <color name="material_blue">#ff03A9F4</color>
+    <color name="material_yellow">#ffFFEB3B</color>
+
+
+    <!-- 图片处于选中状态时的遮罩层颜色 -->
+    <color name="photo_selected_mask">#4D000000</color>
+    <!-- 图片选择器库里所有Activity界面的背景色 -->
+    <color name="bga_pp_activity_bg">#1A1A1A</color>
+    <!-- 图片处于选中状态时的遮罩层颜色 -->
+    <color name="bga_pp_photo_selected_mask">#4D000000</color>
+    <!-- 状态栏的颜色 -->
+    <color name="bga_pp_colorPrimaryDark">@android:color/black</color>
+    <!-- 导航栏的颜色 -->
+    <color name="bga_pp_navigationBarColor">@android:color/black</color>
+    <!-- Toolbar的颜色 -->
+    <color name="bga_pp_colorPrimary">#303D42</color>
+    <color name="red8eFF5E5E">#FF5E5E</color>
+
 </resources>

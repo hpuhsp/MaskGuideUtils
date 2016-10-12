@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/img_mask"
+        android:layout_width="220dip"
+        android:layout_height="100dip"
+        android:src="@drawable/test_mask_img" />
+
+    <TextView
+        android:id="@+id/tv_sure"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/img_mask"
+        android:layout_below="@+id/img_mask"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/shape_tv_sure"
+        android:clickable="true"
+        android:onClick="clickKnown"
+        android:padding="12dp"
+        android:text="知道了"
+        android:textColor="@color/white"
+        android:textStyle="bold" />
+
+</RelativeLayout>

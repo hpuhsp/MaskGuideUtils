@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,7 +25,6 @@ public class HightLightView extends FrameLayout {
     private static final PorterDuffXfermode MODE_DST_OUT = new PorterDuffXfermode(PorterDuff.Mode.DST_OUT);
 
     private Bitmap mMaskBitmap;
-    private Bitmap mLightBitmap;
     private Paint mPaint;
     private List<HighLight.ViewPosInfo> mViewRects;
     private HighLight mHighLight;
@@ -38,6 +38,7 @@ public class HightLightView extends FrameLayout {
     private final boolean isNext;//next模式标志
     private int mPosition = -1;//当前显示的提示布局位置
     private HighLight.ViewPosInfo mViewPosInfo;//当前显示的高亮布局位置信息
+    private Canvas mBaseCanvas;
 
     public HightLightView(Context context, HighLight highLight, int maskColor, List<HighLight.ViewPosInfo> viewRects, boolean isNext) {
         super(context);
@@ -58,7 +59,7 @@ public class HightLightView extends FrameLayout {
 //        if (isBlur)
 //            mPaint.setMaskFilter(new BlurMaskFilter(DEFAULT_WIDTH_BLUR, BlurMaskFilter.Blur.SOLID));
         mPaint.setStyle(Paint.Style.FILL);
-
+        systemGcBitmap();
         addViewForTip();
 
 
@@ -70,6 +71,7 @@ public class HightLightView extends FrameLayout {
             if (mPosition < -1 || mPosition > mViewRects.size() - 1) {
                 //重置位置
                 mPosition = 0;
+                return;
             } else if (mPosition == mViewRects.size() - 1) {
                 //移除当前布局
                 mHighLight.remove();
@@ -77,11 +79,12 @@ public class HightLightView extends FrameLayout {
             } else {
                 //mPosition++
                 mPosition++;
+                mViewPosInfo = mViewRects.get(mPosition);
+                //移除所有tip再添加当前位置的tip布局
+                removeAllTips();
+                addViewForEveryTip(mViewPosInfo);
             }
-            mViewPosInfo = mViewRects.get(mPosition);
-            //移除所有tip再添加当前位置的tip布局
-            removeAllTips();
-            addViewForEveryTip(mViewPosInfo);
+
         } else {
             for (HighLight.ViewPosInfo viewPosInfo : mViewRects) {
                 addViewForEveryTip(viewPosInfo);
@@ -93,6 +96,7 @@ public class HightLightView extends FrameLayout {
      * 移除当前高亮布局的所有提示布局
      */
     private void removeAllTips() {
+        systemGcBitmap();
         removeAllViews();
     }
 
@@ -139,27 +143,33 @@ public class HightLightView extends FrameLayout {
      * @author isanwenyu@16.com
      */
     public void next() {
-        if (isNext) addViewForTip();
+        if (isNext) {
+            addViewForTip();
+        }
     }
 
     private void buildMask() {
-        mMaskBitmap = Bitmap.createBitmap(getMeasuredWidth(), getMeasuredHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(mMaskBitmap);
-        canvas.drawColor(maskColor);
+        if (mMaskBitmap == null) {
+            mMaskBitmap = Bitmap.createBitmap(getMeasuredWidth(), getMeasuredHeight(), Bitmap.Config.ARGB_4444);
+            mBaseCanvas = new Canvas(mMaskBitmap);
+            //设置背景颜色
+            mBaseCanvas.drawColor(maskColor);
+        }
+
         mPaint.setXfermode(MODE_DST_OUT);
         mHighLight.updateInfo();
-        mLightBitmap = Bitmap.createBitmap(getMeasuredWidth(), getMeasuredHeight(), Bitmap.Config.ARGB_8888);
 
-        if (isNext)//如果是next模式添加每个提示布局的背景形状
+        if (isNext)//如果是next模式添加每个提示布局的背景形状,先添加一个
         {
+            Log.d("hsh", "-------------isNext--buildMask--->");
+
             //添加当前提示布局的高亮形状背景
-            addViewEveryTipShape(mViewPosInfo);
-        } else {
+            addViewEveryTipShape(mViewPosInfo, mBaseCanvas, mPaint);
+        } else {  // 一次性添加所有
             for (HighLight.ViewPosInfo viewPosInfo : mViewRects) {
-                addViewEveryTipShape(viewPosInfo);
+                addViewEveryTipShape(viewPosInfo, mBaseCanvas, mPaint);
             }
         }
-        canvas.drawBitmap(mLightBitmap, 0, 0, mPaint);
     }
 
     /**
@@ -168,8 +178,8 @@ public class HightLightView extends FrameLayout {
      * @param viewPosInfo //提示布局的位置信息
      * @author isanwenyu@16.com
      */
-    private void addViewEveryTipShape(HighLight.ViewPosInfo viewPosInfo) {
-        viewPosInfo.lightShape.shape(mLightBitmap, viewPosInfo);
+    private void addViewEveryTipShape(HighLight.ViewPosInfo viewPosInfo, Canvas canvas, Paint paint) {
+        viewPosInfo.lightShape.shape(viewPosInfo, canvas, paint);
     }
 
     @Override
@@ -187,12 +197,8 @@ public class HightLightView extends FrameLayout {
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
-//        if (changed) edited by isanwenyu@163.com for next mode
-        {
-            buildMask();
-            updateTipPos();
-        }
-
+        buildMask();
+        updateTipPos();
     }
 
     private void updateTipPos() {
@@ -250,9 +256,24 @@ public class HightLightView extends FrameLayout {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        if (null != mMaskBitmap) {
+            Log.d("hsh", "---------------onDraw--->");
+            canvas.drawBitmap(mMaskBitmap, 0, 0, null);
+            systemGcBitmap();
+        }
+    }
 
-        canvas.drawBitmap(mMaskBitmap, 0, 0, null);
-        super.onDraw(canvas);
-
+    /**
+     * 释放资源
+     */
+    public void systemGcBitmap() {
+        if (null != mMaskBitmap && !mMaskBitmap.isRecycled()) {
+            mMaskBitmap.recycle();
+            mMaskBitmap = null;
+        }
+        if (null != mBaseCanvas) {
+            mBaseCanvas = null;
+        }
+        System.gc();
     }
 }

@@ -2,7 +2,8 @@ package com.reesehu.lightguideviewlib;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.RectF;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,7 @@ public class HighLight {
     }
 
     public interface LightShape {
-        public void shape(Bitmap bitmap, ViewPosInfo viewPosInfo);
+        void shape(HighLight.ViewPosInfo viewPosInfo, Canvas canvas, Paint paint);
     }
 
     public static class MarginInfo {
@@ -262,7 +263,10 @@ public class HighLight {
             graParent.removeView(parent);
             graParent.addView(origin, parent.getLayoutParams());
         }
+        mHightLightView.systemGcBitmap();
         mHightLightView = null;
+        mAnchor = null;
+        mContext = null;
     }
 
 
